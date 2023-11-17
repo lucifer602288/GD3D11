@@ -21,10 +21,10 @@ jobs:
         configuration: [Release_AVX, Release_G1_AVX, Release, Release_G1, Spacer_NET, Launcher]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1
+      uses: microsoft/setup-msbuild@v1.1
 
     - name: Set tag and directory name env
       run: |
@@ -51,7 +51,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set tag and directory name env
       run: |
@@ -105,7 +105,8 @@ jobs:
     
     - name: Delete old nightly
       if: github.ref_name == 'master'
-      uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      # v1.0.1
+      uses: dev-drprasad/delete-tag-and-release@8cd619d00037e4aeb781909c9a6b03940507d0da
       with:
         delete_release: true
         tag_name: nightly
@@ -114,11 +115,12 @@ jobs:
 
     - name: Create new nightly
       if: github.ref_name == 'master'
-      uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@6c75be85e571768fa31b40abf38de58ba0397db5
       with:
         name: Nightly
         generateReleaseNotes: true
         prerelease: true
+        draft: false
         artifacts: "${{env.RELEASE_DIR}}.zip,{{env.RELEASE_DIR}}.zip.sha256"
         tag: nightly
         token: ${{ secrets.GITHUB_TOKEN }}
