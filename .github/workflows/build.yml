@@ -104,15 +104,6 @@ jobs:
       run: |
         (Get-FileHash "${{env.RELEASE_DIR}}.zip" -Algorithm SHA256).hash | Out-File -FilePath "${{env.RELEASE_DIR}}.zip.sha256"
         type "${{env.RELEASE_DIR}}.zip.sha256"
-    
-    - name: Delete old nightly
-      if: github.ref_name == 'master'
-      # v1.0.1
-      uses: dev-drprasad/delete-tag-and-release@8cd619d00037e4aeb781909c9a6b03940507d0da
-      with:
-        delete_release: true
-        tag_name: nightly
-        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create new nightly
       if: github.ref_name == 'master'
@@ -120,10 +111,12 @@ jobs:
       uses: ncipollo/release-action@6c75be85e571768fa31b40abf38de58ba0397db5
       with:
         name: Nightly
+        tag: nightly
         generateReleaseNotes: true
+        allowUpdates: true
         prerelease: true
         draft: false
-        omitDraftDuringUpdate: true
+        omitDraftDuringUpdate: false
+        removeArtifacts: true
         artifacts: "${{env.RELEASE_DIR}}.zip,${{env.RELEASE_DIR}}.zip.sha256"
-        tag: nightly
         token: ${{ secrets.GITHUB_TOKEN }}
