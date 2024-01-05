@@ -124,3 +124,11 @@ jobs:
         artifacts: "${{env.RELEASE_DIR}}.zip,{{env.RELEASE_DIR}}.zip.sha256"
         tag: nightly
         token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Un-Draft Nightly
+      if: github.ref_name == 'master'
+      run: |
+        gh release edit ${{env.RELEASE_VERSION}} --draft=false
+        exit 0
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
