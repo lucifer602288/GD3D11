@@ -105,6 +105,15 @@ jobs:
         (Get-FileHash "${{env.RELEASE_DIR}}.zip" -Algorithm SHA256).hash | Out-File -FilePath "${{env.RELEASE_DIR}}.zip.sha256"
         type "${{env.RELEASE_DIR}}.zip.sha256"
 
+    - name: Delete old nightly
+      if: github.ref_name == 'master'
+      # v1.0.1
+      uses: dev-drprasad/delete-tag-and-release@8cd619d00037e4aeb781909c9a6b03940507d0da
+      with:
+        delete_release: true
+        tag_name: nightly
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Create new nightly
       if: github.ref_name == 'master'
       # v1.13.0
