@@ -246,12 +246,12 @@ DEFERRED_PS_OUTPUT PSMain( PS_INPUT Input ) : SV_TARGET
 	fx = TX_Texture2.Sample(SS_Linear, Texcoord);
 #endif
 	
+	float4 color = TX_Texture0.Sample(SS_Linear, Texcoord);
+
 	// Apply normalmapping if wanted
 #if NORMALMAPPING == 1
 	nrm = perturb_normal(Input.vNormalVS, Input.vViewPosition, TX_Texture1, Texcoord, SS_Linear, MI_NormalmapStrength);
 #endif
-
-	float4 color = TX_Texture0.Sample(SS_Linear, Texcoord);
 
 	// Do alphatest if wanted
 #if ALPHATEST == 1
@@ -262,13 +262,13 @@ DEFERRED_PS_OUTPUT PSMain( PS_INPUT Input ) : SV_TARGET
 #endif
 
 	float specular = SPECULAR_MULT * fx.r;
-	float roughness = ROUGHNESS_MULT * clamp((ceil(fx.g) - fx.g), 0.0f, 1.0f);
+	float roughness = ROUGHNESS_MULT * (ceil(fx.g) - fx.g);
 	
 	DEFERRED_PS_OUTPUT output;
 	output.vDiffuse = float4(color.rgb, Input.vDiffuse.y);
 	
 	output.vNrm = float4(nrm.xyz, 1.0f);
 	
-	output.vSI_SP.xy = float2(specular, roughness);
+	output.vSI_SP = float2(specular, roughness);
 	return output;
 }
