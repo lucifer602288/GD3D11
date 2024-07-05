@@ -19,7 +19,7 @@ jobs:
     - name: Set tag and directory name env
       run: |
         $tagName = $Env:GITHUB_REF -replace 'refs/tags/', ''
-        $dirName = "GD3D11-${tagName}"
+        $dirName = "GD3D11"
         $shortHash = $Env:GITHUB_SHA.Substring(0, 9)
         echo "Tag: ${tagName}"
         echo "Directory: ${dirName}"
