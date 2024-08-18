@@ -139,7 +139,7 @@ public:
 #endif
     }
 
-    void _PrintChars( int x, int y, const zSTRING& str ) {
+    void PrintChars( int x, int y, const zSTRING& str ) {
         reinterpret_cast<void( __fastcall* )( _zCView*, int, int, int, const zSTRING& )>
             ( GothicMemoryLocations::zCView::PrintChars )( this, 0, x, y, str );
     }
