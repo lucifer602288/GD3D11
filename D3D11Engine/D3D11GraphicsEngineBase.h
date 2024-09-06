@@ -28,7 +28,7 @@ public:
     virtual XRESULT Init() PURE;
 
     /** Called when the game created its window */
-    virtual XRESULT SetWindow( HWND hWnd );
+    virtual XRESULT SetWindow( HWND newhWnd );
 
     /** Called on window resize/resolution change */
     virtual XRESULT OnResize( INT2 newSize ) PURE;
@@ -58,7 +58,7 @@ public:
     virtual XRESULT CreateShadowedPointLight( BaseShadowedPointLight** outPL, VobLightInfo* lightInfo, bool dynamic = false );
 
     /** Returns a list of available display modes */
-    virtual XRESULT GetDisplayModeList( std::vector<DisplayModeInfo>* modeList, bool includeSuperSampling = false ) PURE;
+    virtual std::vector<DisplayModeInfo> GetDisplayModeList() = 0;
 
     /** Presents the current frame to the screen */
     virtual XRESULT Present();

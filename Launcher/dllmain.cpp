@@ -2,7 +2,7 @@
 #include <intrin.h>
 #include <shlwapi.h>
 #include <string>
-
+#include <filesystem>
 #pragma comment(lib, "shlwapi.lib")
 
 enum { GOTHIC1_EXECUTABLE = 0, GOTHIC1A_EXECUTABLE = 1, GOTHIC2_EXECUTABLE = 2, GOTHIC2A_EXECUTABLE = 3, INVALID_EXECUTABLE = -1 };
@@ -89,6 +89,16 @@ extern "C" HMODULE WINAPI FakeGDX_Module() {
     return ddraw.dll;
 }
 
+std::string GetPrivateProfileStringA(
+    const LPCSTR lpAppName,
+    const LPCSTR lpKeyName,
+    const std::string& lpcstrDefault,
+    const std::string& lpFileName ) {
+    char buffer[MAX_PATH];
+    GetPrivateProfileStringA( lpAppName, lpKeyName, lpcstrDefault.c_str(), buffer, MAX_PATH, lpFileName.c_str() );
+    return std::string( buffer );
+}
+
 BOOL APIENTRY DllMain( HINSTANCE hInst, DWORD reason, LPVOID ) {
     if ( reason == DLL_PROCESS_ATTACH ) {
         int foundExecutable = INVALID_EXECUTABLE;
@@ -163,24 +173,51 @@ BOOL APIENTRY DllMain( HINSTANCE hInst, DWORD reason, LPVOID ) {
             foundExecutable = GOTHIC1A_EXECUTABLE;
         }
 
-        char executablePath[MAX_PATH];
-        GetModuleFileNameA( GetModuleHandleA( nullptr ), executablePath, sizeof( executablePath ) );
-        PathRemoveFileSpecA( executablePath );
+        char buf_for_exe[MAX_PATH];
+        GetModuleFileNameA( GetModuleHandleA( nullptr ), buf_for_exe, sizeof( buf_for_exe ) );
+        PathRemoveFileSpecA( buf_for_exe );
+        std::string executablePath = std::string( buf_for_exe );
+        std::string rootPath = executablePath.substr( 0, executablePath.rfind( "\\" ) );
+
+        bool showLoadingInfo = true;
+        std::string dllFolder = executablePath + "\\GD3D11\\bin";
+        std::string iniHandle = executablePath + "\\GD3D11\\UserSettings.ini";
+        std::string CustomGameName = GetPrivateProfileStringA( "CustomLoadMode", "AddonName", "SpacerNET.mod", iniHandle );
+        
+        if (CustomGameName == "SpacerNET.mod") // sane default
+            WritePrivateProfileStringA( "CustomLoadMode", "AddonName", CustomGameName.c_str(), iniHandle.c_str());
+
+        bool loadCustomLoadMode = std::filesystem::exists(rootPath + "\\Data\\" + CustomGameName);
+        std::transform( CustomGameName.begin(), CustomGameName.end(), CustomGameName.begin(), ::tolower ); // Convert to lowercase
+        
+        size_t extPos = CustomGameName.find_last_of( '.' );
+        if ( extPos != std::string::npos && (
+                CustomGameName.substr( extPos ) == ".vdf" || CustomGameName.substr( extPos ) == ".mod"
+                ) 
+           )
+        {
+            CustomGameName = CustomGameName.substr( 0, extPos );
+        }
 
         ddraw.dll = nullptr;
-        bool showLoadingInfo = true;
         switch ( foundExecutable ) {
             case GOTHIC2A_EXECUTABLE: {
+                std::string dllPath;
+                if ( loadCustomLoadMode )
+                    dllPath = dllFolder + "\\" + CustomGameName + "_";
+                else
+                    dllPath = dllFolder + "\\";
+
                 if ( haveAVX2 && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g2a_avx2.dll";
+                    dllPath += "g2a_avx2.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( haveAVX && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g2a_avx.dll";
+                    dllPath += "g2a_avx.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g2a.dll";
+                    dllPath += "g2a.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
             }
@@ -188,31 +225,37 @@ BOOL APIENTRY DllMain( HINSTANCE hInst, DWORD reason, LPVOID ) {
 
             case GOTHIC2_EXECUTABLE: {
                 if ( haveAVX2 && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g2_avx2.dll";
+                    std::string dllPath = dllFolder + "\\g2_avx2.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( haveAVX && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g2_avx.dll";
+                    std::string dllPath = dllFolder + "\\g2_avx.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g2.dll";
+                    std::string dllPath = dllFolder + "\\g2.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
             }
             break;
 
             case GOTHIC1_EXECUTABLE: {
+                std::string dllPath;
+                if ( loadCustomLoadMode )
+                    dllPath = dllFolder + "\\" + CustomGameName + "_";
+                else
+                    dllPath = dllFolder + "\\";
+
                 if ( haveAVX2 && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g1_avx2.dll";
+                    dllPath += "g1_avx2.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( haveAVX && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g1_avx.dll";
+                    dllPath += "g1_avx.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g1.dll";
+                    dllPath += "g1.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
             }
@@ -220,15 +263,15 @@ BOOL APIENTRY DllMain( HINSTANCE hInst, DWORD reason, LPVOID ) {
 
             case GOTHIC1A_EXECUTABLE: {
                 if ( haveAVX2 && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g1a_avx2.dll";
+                    std::string dllPath = dllFolder + "\\g1a_avx2.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( haveAVX && !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g1a_avx.dll";
+                    std::string dllPath = dllFolder + "\\g1a_avx.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
                 if ( !ddraw.dll ) {
-                    std::string dllPath = std::string( executablePath ) + "\\GD3D11\\bin\\g1a.dll";
+                    std::string dllPath = dllFolder + "\\g1a.dll";
                     ddraw.dll = LoadLibraryA( dllPath.c_str() );
                 }
             }
