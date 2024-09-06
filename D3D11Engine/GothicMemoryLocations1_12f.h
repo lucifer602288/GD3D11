@@ -216,6 +216,11 @@ struct GothicMemoryLocations {
         static const unsigned int Destructor = 0x005F9870;
     };
 
+    struct oCVisualFX {
+        static const unsigned int Offset_emAdjustShpToOrigin = 0x29C;
+        static const unsigned int AdjustShapeToOrigin = 0x0049B170;
+    };
+
     struct zCBspTree {
         static const unsigned int AddVob = 0x005344B0;
         static const unsigned int LoadBIN = 0x0053B550;
@@ -399,6 +404,7 @@ struct GothicMemoryLocations {
         static const unsigned int Call_Render_zCBspTreeRender = 0x00614E45;
         static const unsigned int Offset_SkyControllerOutdoor = 0x0D0;
         static const unsigned int DisposeVobs = 0x00616570;
+        static const unsigned int DisposeWorld = 0x00616780;
         static const unsigned int Offset_BspTree = 0x198;
         static const unsigned int RemoveVob = 0x00617690;
     };

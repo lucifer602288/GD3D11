@@ -457,7 +457,10 @@ struct GothicMemoryLocations {
         static const unsigned int Destructor = 0x00606800;
     };
 
-
+	struct oCVisualFX {
+		static const unsigned int Offset_emAdjustShpToOrigin = 0x2D0;
+		static const unsigned int AdjustShapeToOrigin = 0x00498EE0;
+	};
 
     struct zCDecal {
         static const unsigned int Offset_DecalSettings = 0x34;

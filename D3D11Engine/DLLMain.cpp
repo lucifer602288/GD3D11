@@ -5,7 +5,7 @@
 #include "Logger.h"
 #include "Detours/detours.h"
 #include "DbgHelp.h"
-#include "BaseAntTweakBar.h"
+#include "AntTweakBarShim.h"
 #include "HookedFunctions.h"
 #include <signal.h>
 #include "VersionCheck.h"
@@ -36,7 +36,6 @@ WinMainFunc originalWinMain = reinterpret_cast<WinMainFunc>(GothicMemoryLocation
 #endif
 
 bool FeatureLevel10Compatibility = false;
-bool GMPModeActive = false;
 
 void SignalHandler( int signal ) {
     LogInfo() << "Signal:" << signal;
@@ -208,19 +207,24 @@ void CheckPlatformSupport() {
 #endif
 }
 
+inline void CheckForFreetardisms() {
+    HMODULE ntdll = GetModuleHandleA( "ntdll.dll" );
+    if ( ntdll ) 
+    {
+        Wine_GetVersion = reinterpret_cast<const char* (CDECL*)(void)>(GetProcAddress( ntdll, "wine_get_version" ));
+        Wine_GetUnderlyingOSVersion = reinterpret_cast<void (CDECL*)(const char** sysname, const char** release)>(GetProcAddress( ntdll, "wine_get_host_version" ));
+        if ( Wine_GetVersion && Wine_GetUnderlyingOSVersion )
+        {
+            const char* sysname = nullptr;
+            const char* release = nullptr;
+            Wine_GetUnderlyingOSVersion( &sysname , &release );
+            LogInfo() << "Running on " << sysname << " " << release << " through Wine " << Wine_GetVersion() << ", noice.";
+        }
+    }
+}
+
 #if defined(BUILD_GOTHIC_2_6_fix)
 int WINAPI hooked_WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd ) {
-    if ( GetModuleHandleA( "gmp.dll" ) ) {
-        GMPModeActive = true;
-        LogInfo() << "GMP Mode Enabled";
-    }
-    // Remove automatic volume change of sounds regarding whether the camera is indoor or outdoor
-    // TODO: Implement!
-    if ( !GMPModeActive ) {
-        DetourTransactionBegin();
-        DetourAttach( &reinterpret_cast<PVOID&>(HookedFunctions::OriginalFunctions.original_zCActiveSndAutoCalcObstruction), HookedFunctionInfo::hooked_zCActiveSndAutoCalcObstruction );
-        DetourTransactionCommit();
-    }
     return originalWinMain( hInstance, hPrevInstance, lpCmdLine, nShowCmd );
 }
 #endif
@@ -256,6 +260,7 @@ BOOL WINAPI DllMain( HINSTANCE hInst, DWORD reason, LPVOID ) {
             // Check for right version
             VersionCheck::CheckExecutable();
             CheckPlatformSupport();
+            CheckForFreetardisms();
 
             Engine::GAPI = nullptr;
             Engine::GraphicsEngine = nullptr;
