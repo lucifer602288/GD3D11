@@ -355,7 +355,7 @@ void ImGuiShim::RenderSettingsWindow()
             ImGui::PushStyleVar( ImGuiStyleVar_ButtonTextAlign, ImVec2( 0.f, 0.5f ) );
             ImGui::Button( "VisualFX Draw Distance", buttonWidth ); ImGui::SameLine();
             ImGui::PopStyleVar();
-            if ( ImGui::SliderFloat( "##VisualFXDrawRadius", &visualFXDrawDistance, 2.f, 30.0f ) ) {
+            if ( ImGui::SliderFloat( "##VisualFXDrawRadius", &visualFXDrawDistance, 0.1f, 10.0f ) ) {
                 Engine::GAPI->GetRendererState().RendererSettings.VisualFXDrawRadius = static_cast<float>(visualFXDrawDistance * 1000.0f);
             }
             ImGui::PushStyleVar( ImGuiStyleVar_ButtonTextAlign, ImVec2( 0.f, 0.5f ) );
