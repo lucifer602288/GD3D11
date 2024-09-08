@@ -5739,14 +5739,6 @@ void D3D11GraphicsEngine::DrawFrameParticleMeshes( std::unordered_map<zCVob*, Me
         }
 
         // Scaling is problematic with particle meshes (scaling is problematic in gothic overall), recalc before sendoff
-        // I think this one should be whenever any of the vobs are loaded into engine... eh
-
-        //// This one works too, but its ugly
-        //XMVECTOR rotationPart = XMQuaternionRotationMatrix( XMMatrixTranspose( it.first->GetWorldMatrixXM() ) );
-        //XMMATRIX normalizedMatrix = XMMatrixScalingFromVector( g_XMOne3 ) * 
-        //    XMMatrixRotationQuaternion( rotationPart ) *
-        //    XMMatrixTranslationFromVector( it.first->GetPositionWorldXM() );
-        //XMStoreFloat4x4( it.first->GetWorldMatrixPtr(), XMMatrixTranspose( normalizedMatrix ));
 
         XMMATRIX matrix = it.first->GetWorldMatrixXM();
 
