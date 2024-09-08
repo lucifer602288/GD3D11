@@ -82,7 +82,7 @@ void D3D11Effect::FillRandomRaindropData( std::vector<RainParticleInstanceInfo>&
         raindrop.color = float4( SeedX, SeedY, SeedZ, randomIncrease );
 
         float height = 30.0f;
-        raindrop.scale = float3( height / 10.0f, height / 2.0f, 0.f );
+        raindrop.scale = float2( height / 10.0f, height / 2.0f );
 
         data[i] = raindrop;
     }
