@@ -5662,6 +5662,10 @@ void D3D11GraphicsEngine::DrawDecalList( const std::vector<zCVob*>& decals,
             XMMatrixTranspose( XMMatrixScaling( d->GetDecalSettings()->DecalSize.x * 2,
                 -d->GetDecalSettings()->DecalSize.y * 2, 1 ) );
 
+        XMMATRIX scale =
+            XMMatrixTranspose( XMMatrixScaling( d->GetDecalSettings()->DecalSize.x * 2,
+                -d->GetDecalSettings()->DecalSize.y * 2, 1 ) );
+
         if ( alignment == zVISUAL_CAM_ALIGN_YAW ) {
             XMFLOAT3 decalPos = decals[i]->GetPositionWorld();
             float angle = atan2( decalPos.x - camPos.x, decalPos.z - camPos.z );
