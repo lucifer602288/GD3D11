@@ -544,15 +544,11 @@ struct GothicRendererSettings {
         IndoorVobDrawRadius = 5000.0f;
         OutdoorVobDrawRadius = 30000.0f;
         SkeletalMeshDrawRadius = 6000.0f;
-        VisualFXDrawRadius = 10000.0f;
-
-
-
+        VisualFXDrawRadius = 8000.0f;
         OutdoorSmallVobDrawRadius = 10000.0f;
         SmallVobSize = 1500.0f;
 
 #if BUILD_SPACER_NET
-        VisualFXDrawRadius = 16000.0f;
         OutdoorSmallVobDrawRadius = 30000.0f;
         IndoorVobDrawRadius = 10000.0f;
         SectionDrawRadius = 8;
