@@ -26,6 +26,13 @@ if (-Not (Test-Path -Path $binFolder)) {
     New-Item -ItemType Directory -Path $binFolder
 }
 
+robocopy "$PSScriptRoot\blobs\Meshes\" "$outputFolder\GD3D11\Meshes\" /E /MT
+robocopy "$PSScriptRoot\blobs\Textures\" "$outputFolder\GD3D11\Textures\" /E /MT
+robocopy "$PSScriptRoot\blobs\Fonts\" "$outputFolder\GD3D11\Fonts\" /E /MT
+robocopy "$PSScriptRoot\blobs\libs\" "$outputFolder\" /E /MT
+robocopy "$PSScriptRoot\D3D11Engine\Shaders\" "$outputFolder\GD3D11\Shaders\" /E /MT
+robocopy "$PSScriptRoot\D3D11Engine\CSFFT\" "$outputFolder\GD3D11\Shaders\CSFFT" *.hlsl /E /MT
+
 # Compile main ddraw.dll component
 & $msBuildPath $solutionPath /p:Configuration="Launcher"
 $outputFile = "$PSScriptRoot\Launcher\ddraw.dll"
@@ -38,12 +45,6 @@ foreach ($config in $configurations.Keys) {
     Copy-Item -Path $outputFile -Destination $binFolder -Recurse -Force
 }
 
-robocopy "$PSScriptRoot\blobs\Meshes\" "$outputFolder\GD3D11\Meshes\" /E /MT
-robocopy "$PSScriptRoot\blobs\Textures\" "$outputFolder\GD3D11\Textures\" /E /MT
-robocopy "$PSScriptRoot\blobs\Fonts\" "$outputFolder\GD3D11\Fonts\" /E /MT
-robocopy "$PSScriptRoot\blobs\libs\" "$outputFolder\" /E /MT
-robocopy "$PSScriptRoot\D3D11Engine\Shaders\" "$outputFolder\GD3D11\Shaders\" /E /MT
-robocopy "$PSScriptRoot\D3D11Engine\CSFFT\" "$outputFolder\GD3D11\Shaders\CSFFT" *.hlsl /E /MT
 
 # pack this bitch and go
 & "C:\Program Files\7-Zip\7z.exe" -mx=9 -t7z a "GD3D11-$current_date.7z" "$outputFolder\*"
