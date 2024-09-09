@@ -1902,11 +1902,9 @@ XRESULT  D3D11GraphicsEngine::DrawSkeletalMesh( SkeletalVobInfo* vi,
                 }
             }
 
-            D3D11VertexBuffer* vb;
-            D3D11VertexBuffer* ib;
+            D3D11VertexBuffer* vb = mesh->MeshVertexBuffer;
+            D3D11VertexBuffer* ib = mesh->MeshIndexBuffer;
             unsigned int numIndices = mesh->Indices.size();
-            vb = mesh->MeshVertexBuffer;
-            ib = mesh->MeshIndexBuffer;
 
             if ( vb ) {
                 UINT offset = 0;
