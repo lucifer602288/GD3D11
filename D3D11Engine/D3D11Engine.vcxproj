@@ -276,7 +276,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g2a</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -287,7 +287,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>spacernet_g2a</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -298,7 +298,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>spacernet_g1</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -309,7 +309,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>spacernet_g1_avx2</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -320,7 +320,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>spacernet_g1_avx</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -331,7 +331,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>spacernet_g2a_avx2</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -342,7 +342,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>spacernet_g2a_avx</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -353,7 +353,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g2a_avx2</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -364,7 +364,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g2a_avx</TargetName>
+    <TargetName>ddraw</TargetName>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -375,7 +375,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g1</TargetName>
+    <TargetName>ddraw</TargetName>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
@@ -383,7 +383,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g1a</TargetName>
+    <TargetName>ddraw</TargetName>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
@@ -391,7 +391,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g1a_avx2</TargetName>
+    <TargetName>ddraw</TargetName>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
@@ -399,7 +399,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/assimp/;include/contrib/;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g1a_avx</TargetName>
+    <TargetName>ddraw</TargetName>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
@@ -407,7 +407,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g1_avx2</TargetName>
+    <TargetName>ddraw</TargetName>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
@@ -415,7 +415,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
     <LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
-    <TargetName>g1_avx</TargetName>
+    <TargetName>ddraw</TargetName>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
