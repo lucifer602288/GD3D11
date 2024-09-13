@@ -84,15 +84,15 @@ jobs:
         Xcopy "blobs\Meshes" "${{env.RELEASE_DIR}}\GD3D11\Meshes\" /s
         Xcopy "blobs\Textures" "${{env.RELEASE_DIR}}\GD3D11\Textures\" /s
         Xcopy "blobs\libs\*" "${{env.RELEASE_DIR}}\" /s
-        copy "Release_G2A_AVX2\g2a_avx2.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g2a_avx2.dll"
-        copy "Release_G2A_AVX\g2a_avx.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g2a_avx.dll"
-        copy "Release_G2A_SSE2\g2a.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g2a.dll"
-        copy "Release_G1_AVX2\g1_avx2.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1_avx2.dll"
-        copy "Release_G1_AVX\g1_avx.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1_avx.dll"
-        copy "Release_G1_SSE2\g1.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1.dll"
-        copy "Release_G1A_AVX2\g1a_avx2.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1a_avx2.dll"
-        copy "Release_G1A_AVX\g1a_avx.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1a_avx.dll"
-        copy "Release_G1A_SSE2\g1a.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1a.dll"
+        copy "Release_G2A_AVX2\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g2a_avx2.dll"
+        copy "Release_G2A_AVX\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g2a_avx.dll"
+        copy "Release_G2A_SSE2\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g2a.dll"
+        copy "Release_G1_AVX2\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1_avx2.dll"
+        copy "Release_G1_AVX\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1_avx.dll"
+        copy "Release_G1_SSE2\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1.dll"
+        copy "Release_G1A_AVX2\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1a_avx2.dll"
+        copy "Release_G1A_AVX\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1a_avx.dll"
+        copy "Release_G1A_SSE2\ddraw.dll" "${{env.RELEASE_DIR}}\GD3D11\Bin\g1a.dll"
         cd "${{env.RELEASE_DIR}}"
         7z a -tzip "..\${{env.RELEASE_DIR}}.zip" -r
 
