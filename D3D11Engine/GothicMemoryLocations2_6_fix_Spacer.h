@@ -318,8 +318,11 @@ struct GothicMemoryLocations {
         static const unsigned int GetBBoxLocal = 0x007A6080;
         static const unsigned int Offset_HomeWorld = 0x0B8;
         static const unsigned int Offset_GroundPoly = 0x0BC;
+
         static const unsigned int Offset_Flags = 0x104;
+		static const unsigned int Offset_VobAlpha = 0xCC;
         static const unsigned int MASK_ShowVisual = 0x1;
+		static const unsigned int MASK_VisualAlpha = 0x4;
         static const unsigned int Offset_CameraAlignment = 0x110;
         static const unsigned int SHIFTLR_CameraAlignment = 0x1E;
 

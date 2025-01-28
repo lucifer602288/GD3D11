@@ -890,6 +890,7 @@ XRESULT D3D11GraphicsEngine::OnResize( INT2 newSize ) {
 
 /** Called when the game wants to render a new frame */
 XRESULT D3D11GraphicsEngine::OnBeginFrame() {
+
     Engine::GAPI->GetRendererState().RendererInfo.Timing.StartTotal();
     if ( !m_isWindowActive && Engine::GAPI->GetRendererState().RendererSettings.EnableInactiveFpsLock ) {
         m_FrameLimiter->SetLimit( 20 );
@@ -1044,7 +1045,7 @@ XRESULT D3D11GraphicsEngine::OnEndFrame() {
 
     Engine::GAPI->GetRendererState().RendererInfo.Timing.StopTotal();
     if ( !Engine::GAPI->GetRendererState().RendererSettings.BinkVideoRunning ) {
-        m_FrameLimiter->Wait();
+    m_FrameLimiter->Wait();
     }
     return XR_SUCCESS;
 }
@@ -3177,6 +3178,7 @@ void D3D11GraphicsEngine::DrawWaterSurfaces() {
     // Draw Ocean
     if ( !FeatureLevel10Compatibility && Engine::GAPI->GetOcean() ) Engine::GAPI->GetOcean()->Draw();
 
+
     GetContext()->OMSetRenderTargets( 1, HDRBackBuffer->GetRenderTargetView().GetAddressOf(),
         DepthStencilBuffer->GetDepthStencilView().Get() );
 }
@@ -3473,8 +3475,8 @@ void XM_CALLCONV D3D11GraphicsEngine::DrawWorldAround(
 
                 // Ghosts shouldn't have shadows
                 if ( skeletalMeshVob->Vob->GetVisualAlpha() && skeletalMeshVob->Vob->GetVobTransparency() < 0.7f ) {
-                    continue;
-                }
+                        continue;
+                    }
 
                 // Check vob range
                 float dist;
@@ -3744,8 +3746,8 @@ void XM_CALLCONV D3D11GraphicsEngine::DrawWorldAround( FXMVECTOR position,
 
             // Ghosts shouldn't have shadows
             if ( skeletalMeshVob->Vob->GetVisualAlpha() && skeletalMeshVob->Vob->GetVobTransparency() < 0.7f ) {
-                continue;
-            }
+                    continue;
+                }
 
             float dist; XMStoreFloat( &dist, XMVector3Length( skeletalMeshVob->Vob->GetPositionWorldXM() - position ) );
             if ( dist > Engine::GAPI->GetRendererState().RendererSettings.IndoorVobDrawRadius )
@@ -5443,9 +5445,6 @@ void D3D11GraphicsEngine::DrawDecalList( const std::vector<zCVob*>& decals,
         XMMATRIX world = decals[i]->GetWorldMatrixXM();
         XMMATRIX offset =
             XMMatrixTranslation( d->GetDecalSettings()->DecalOffset.x, -d->GetDecalSettings()->DecalOffset.y, 0 );
-        XMMATRIX scale =
-            XMMatrixTranspose( XMMatrixScaling( d->GetDecalSettings()->DecalSize.x * 2,
-                -d->GetDecalSettings()->DecalSize.y * 2, 1 ) );
 
         if ( alignment == zVISUAL_CAM_ALIGN_YAW ) {
             XMFLOAT3 decalPos = decals[i]->GetPositionWorld();
