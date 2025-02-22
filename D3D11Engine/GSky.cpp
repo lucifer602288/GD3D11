@@ -220,7 +220,6 @@ void GSky::SetCustomSkyWavelengths( float X, float Y, float Z ) {
     Atmosphere.WaveLengths = float3( X, Y, Z );
 }
 
-
 /** Returns the sky-texture for the passed daytime (0..1) */
 void GSky::GetTextureOfDaytime( float time, D3D11Texture** t1, D3D11Texture** t2, float* factor ) {
     if ( !SkyTextures.size() )
@@ -322,35 +321,16 @@ float4 GSky::GetSkylightColor() {
 }
 
 /** Returns the cloud texture */
-3D11Texture * GSky::GetCloudTexture() {
-
-
-
+D3D11Texture * GSky::GetCloudTexture() {
     if ( CloudTexture_Zen ) {
-
-
         if ( CloudTexture_Zen->CacheIn( -1 ) == zRES_CACHED_IN ) {
-
-
             if ( MyDirectDrawSurface7* dds7 = CloudTexture_Zen->GetSurface() ) {
-
-
                 return dds7->GetEngineTexture();
-
-
             }
-
-
         }
-
-
     }
-
     return CloudTexture.get();
-
 }
-
-
 
 /** Returns the cloud texture */
 D3D11Texture* GSky::GetNightTexture() {
@@ -360,11 +340,7 @@ D3D11Texture* GSky::GetNightTexture() {
                 return dds7->GetEngineTexture();
             }
         }
-    }    return CloudTexture.get();
-}
-
-/** Returns the cloud texture */
-D3D11Texture* GSky::GetNightTexture() {
+    }
     return NightTexture.get();
 }
 
