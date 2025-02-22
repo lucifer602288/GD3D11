@@ -284,7 +284,6 @@ extern "C" void WINAPI HookedReleaseDDThreadLock() {
     LogInfo() << "ReleaseDDThreadLock called!";
 }
 
-
 extern "C" float WINAPI  UpdateCustomFontMultiplierFontRendering( float multiplier ) {
     D3D11GraphicsEngine* engine = reinterpret_cast<D3D11GraphicsEngine*>(Engine::GraphicsEngine);
     return engine ? engine->UpdateCustomFontMultiplierFontRendering( multiplier ) : 1.0;
@@ -296,6 +295,21 @@ extern "C" void WINAPI  SetCustomCloudAndNightTexture( int idxTexture, bool isNi
     WorldInfo* currentWorld = Engine::GAPI->GetLoadedWorldInfo();
     if ( sky && currentWorld ) {
         sky->SetCustomCloudAndNightTexture( idxTexture, isNightTexture, currentWorld->WorldName == "OLDWORLD" || currentWorld->WorldName == "WORLD" );
+    }
+}
+
+extern "C" void WINAPI SetCustomSkyTexture_ZenGin( bool isNightTexture, zCTexture* texture ) {
+    GSky* sky = Engine::GAPI->GetSky();
+    WorldInfo* currentWorld = Engine::GAPI->GetLoadedWorldInfo();
+    if ( sky && currentWorld ) {
+        sky->SetCustomSkyTexture_ZenGin( isNightTexture, texture, currentWorld->WorldName == "OLDWORLD" || currentWorld->WorldName == "WORLD" );
+    }
+}
+
+extern "C" void WINAPI SetCustomSkyWavelengths( float X, float Y, float Z ) {
+    GSky* sky = Engine::GAPI->GetSky();
+    if ( sky ) {
+        sky->SetCustomSkyWavelengths( X, Y, Z );
     }
 }
 
