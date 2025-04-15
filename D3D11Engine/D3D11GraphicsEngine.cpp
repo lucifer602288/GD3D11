@@ -127,8 +127,10 @@ void PrintD3DFeatureLevel( D3D_FEATURE_LEVEL lvl ) {
 
 /** Called when the game created it's window */
 XRESULT D3D11GraphicsEngine::Init() {
+    // Loading nvapi should tell nvidia drivers to use discrete gpu
+    LoadLibraryA( "NVAPI.DLL" );
+    
     HRESULT hr;
-
     LogInfo() << "Initializing Device...";
 
     // Create DXGI factory
@@ -202,6 +204,20 @@ XRESULT D3D11GraphicsEngine::Init() {
     std::string deviceDescription( wDeviceDescription.begin(), wDeviceDescription.end() );
     DeviceDescription = deviceDescription;
     LogInfo() << "Rendering on: " << deviceDescription.c_str();
+
+    if ( adpDesc.VendorId == 0x1002 ) {
+        static const GUID IID_IDXGIVkInteropAdapter = { 0x3A6D8F2C, 0xB0E8, 0x4AB4, { 0xB4, 0xDC, 0x4F, 0xD2, 0x48, 0x91, 0xBF, 0xA5 } };
+
+        IUnknown* dxgiVKInterop = nullptr;
+        HRESULT result = DXGIAdapter2->QueryInterface( IID_IDXGIVkInteropAdapter, reinterpret_cast<void**>(&dxgiVKInterop) );
+        if ( SUCCEEDED( result ) ) {
+            dxgiVKInterop->Release();
+        } else {
+            LogWarnBox() << "You might experience random crashes when saving game due"
+                " to heavy memory overhead caused by AMD drivers.\n"
+                "It is recommended to use 32-bit DXVK on top of GD3D11.";
+        }
+    }
 
     D3D_FEATURE_LEVEL maxFeatureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_9_1;
     D3D_FEATURE_LEVEL featureLevels[] = {

@@ -8,7 +8,7 @@
 enum { GOTHIC1_EXECUTABLE = 0, GOTHIC1A_EXECUTABLE = 1, GOTHIC2_EXECUTABLE = 2, GOTHIC2A_EXECUTABLE = 3, INVALID_EXECUTABLE = -1 };
 
 struct ddraw_dll {
-    HMODULE dll;
+    HMODULE dll = NULL;
     FARPROC	AcquireDDThreadLock;
     FARPROC	CheckFullscreen;
     FARPROC	CompleteCreateSysmemSurface;
@@ -90,6 +90,20 @@ bool FakeIsUsingBGRATextures() { return true; }
 
 extern "C" HMODULE WINAPI FakeGDX_Module() {
     return ddraw.dll;
+}
+
+bool CheckFileExists( const char* fileName ) {
+    DWORD attr = GetFileAttributesA( fileName );
+    if ( attr == INVALID_FILE_ATTRIBUTES && GetLastError() == ERROR_FILE_NOT_FOUND ) {
+        return false;
+    }
+    return true;
+}
+
+void CheckLibraryExists( const char* filePath, const char* fileName ) {
+    if ( !CheckFileExists( (std::string( filePath ) + "\\" + fileName).c_str() ) ) {
+        MessageBoxA( nullptr, (std::string( "GD3D11 Renderer couldn't be loaded.\nUnable to load DLL '" ) + fileName + "'. The specified module could not be found.").c_str(), "Gothic GD3D11", MB_ICONERROR );
+    }
 }
 
 std::string GetPrivateProfileStringA(
@@ -340,7 +354,9 @@ BOOL APIENTRY DllMain( HINSTANCE hInst, DWORD reason, LPVOID ) {
         ddraw.SetCustomSkyTexture = GetProcAddress( ddraw.dll, "SetCustomSkyTexture" );
         
     } else if ( reason == DLL_PROCESS_DETACH ) {
-        FreeLibrary( ddraw.dll );
+        if ( ddraw.dll ) {
+            FreeLibrary( ddraw.dll );
+        }
     }
     return TRUE;
 }
