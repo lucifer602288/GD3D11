@@ -42,7 +42,7 @@ Copy-Item -Path $outputFile -Destination $outputFolder -Recurse -Force
 foreach ($config in $configurations.Keys) {
     & $msBuildPath $solutionPath /p:Configuration=$config
     $outputFile = "$PSScriptRoot\$config\ddraw.dll"
-    Copy-Item -Path $outputFile -Destination $binFolder -Recurse -Force
+    Copy-Item -Path $outputFile -Destination "$binFolder/$($configurations[$config])" -Recurse -Force
 }
 
 
