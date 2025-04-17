@@ -1870,6 +1870,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Launcher|Win32'">
     <LinkIncremental>false</LinkIncremental>
+	<IncludePath>$(IncludePath);include;include/imgui/;include/imgui/backends/</IncludePath>
+	<LibraryPath>$(directxtk-LibPath);$(fx11-LibPath);lib;$(LibraryPath)</LibraryPath>
     <CustomBuildAfterTargets />
     <CustomBuildBeforeTargets />
   </PropertyGroup>
