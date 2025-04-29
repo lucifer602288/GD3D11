@@ -21,8 +21,9 @@ public:
 
     /** Reads config stuff */
     static void __fastcall hooked_oCSpawnManagerSpawnNpc( zCVob* thisptr, void* unknwn, oCNPC* npc, const XMFLOAT3& position, float f ) {
+        HookedFunctions::OriginalFunctions.original_oCSpawnManagerSpawnNpc( thisptr, npc, position, f );
+
         hook_infunc
-            HookedFunctions::OriginalFunctions.original_oCSpawnManagerSpawnNpc( thisptr, npc, position, f );
 
         if ( npc->GetSleepingMode() != 0 || npc->IsAPlayer() ) {
             Engine::GAPI->OnRemovedVob( npc, npc->GetHomeWorld() );
@@ -32,21 +33,15 @@ public:
     }
 
     static int __fastcall hooked_oCSpawnManagerCheckRemoveNpc( void* thisptr, void* unknwn, oCNPC* npc ) {
-        hook_infunc
-            Engine::GAPI->SetCanClearVobsByVisual();
+        Engine::GAPI->SetCanClearVobsByVisual();
         auto res = HookedFunctions::OriginalFunctions.original_oCSpawnManagerCheckRemoveNpc( thisptr, npc );
         Engine::GAPI->SetCanClearVobsByVisual( false );
         return res;
-        hook_outfunc
-
-            return 0;
     }
 
     /** Reads config stuff */
     static void __fastcall hooked_oCSpawnManagerCheckInsertNpc( void* thisptr, void* unknwn ) {
-        hook_infunc
-            HookedFunctions::OriginalFunctions.original_oCSpawnManagerCheckInsertNpc( thisptr );
-        hook_outfunc
+        HookedFunctions::OriginalFunctions.original_oCSpawnManagerCheckInsertNpc( thisptr );
     }
 };
 
